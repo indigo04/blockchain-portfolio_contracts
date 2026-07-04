@@ -1,14 +1,51 @@
-# Compiler files
+# ==============================================================================
+# Blockchain Development (Hardhat / Foundry / Truffle)
+# ==============================================================================
+# Hardhat / Truffle artifacts and cache
+artifacts/
 cache/
-out/
 
-# Ignores development broadcast logs
+# Foundry artifacts and cache
+out/
+cache_forge/
+
+# Typechain (TypeScript bindings for Hardhat)
+typechain-types/
+typechain/
+
+# Dependencies (npm & forge libs)
+node_modules/
+lib/
+
+# ==============================================================================
+# Foundry Broadcasts & Simulates (Logs of deployments)
+# ==============================================================================
+# Ignores development broadcast logs (local Anvil chain 31337 and simulations)
 !/broadcast
 /broadcast/*/31337/
 /broadcast/**/dry-run/
 
-# Docs
-docs/
-
-# Dotenv file
+# ==============================================================================
+# Security & Environment Variables (CRITICAL)
+# ==============================================================================
 .env
+.env.*
+!.env.example
+secrets.json
+
+# ==============================================================================
+# IDEs and System Files
+# ==============================================================================
+# MacOS system files
+.DS_Store
+
+# IDEs (VS Code, WebStorm)
+.vscode/
+.idea/
+
+# ==============================================================================
+# Documentation & Reports
+# ==============================================================================
+docs/
+coverage/
+coverage.json
