@@ -151,10 +151,7 @@ contract NftMarketplace is Initializable, OwnableUpgradeable, ReentrancyGuard {
             revert NotOwner();
         }
 
-        if (
-            !nft.isApprovedForAll(msg.sender, address(this)) ||
-            nft.getApproved(tokenId) != address(this)
-        ) {
+        if (!nft.isApprovedForAll(msg.sender, address(this))) {
             revert NotApproved();
         }
 

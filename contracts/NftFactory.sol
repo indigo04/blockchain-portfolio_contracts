@@ -8,6 +8,7 @@ import {
     OwnableUpgradeable
 } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {NftToken} from "./NftToken.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**
  * @title NFTFactoryUpgradeable
@@ -16,7 +17,10 @@ import {NftToken} from "./NftToken.sol";
  * @dev This factory contract itself is upgradeable and utilizes the OpenZeppelin initializable pattern.
  * It deploys instances of the `NftToken` contract and initializes them on the fly.
  */
-contract NFTFactoryUpgradeable is Initializable, OwnableUpgradeable {
+contract NftFactory is Initializable, OwnableUpgradeable {
+    /// @notice The address of the NFT clones implementation.
+    address public nftImplementation;
+
     /**
      * @notice Array containing the addresses of all NFT collections deployed by this factory.
      * @dev Public getter `deployedCollections(uint256)` is automatically generated to fetch individual addresses.
@@ -54,9 +58,14 @@ contract NFTFactoryUpgradeable is Initializable, OwnableUpgradeable {
      * @notice Initializes the factory contract and sets the initial owner.
      * @dev Replaces the standard constructor for compatibility with upgradeable proxies.
      * @param initialOwner The address that will be granted ownership of the factory.
+     * @param _nftImplementation The address of NFT implementation.
      */
-    function initialize(address initialOwner) public initializer {
+    function initialize(
+        address initialOwner,
+        address _nftImplementation
+    ) public initializer {
         __Ownable_init(initialOwner);
+        nftImplementation = _nftImplementation;
     }
 
     /**
@@ -74,7 +83,8 @@ contract NFTFactoryUpgradeable is Initializable, OwnableUpgradeable {
         if (bytes(name).length == 0 || bytes(symbol).length == 0)
             revert InvalidData();
 
-        NftToken newCollection = new NftToken();
+        address clone = Clones.clone(nftImplementation);
+        NftToken newCollection = NftToken(clone);
 
         newCollection.initialize(name, symbol, msg.sender);
 

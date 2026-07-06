@@ -10,6 +10,9 @@ import {
 import {
     Initializable
 } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {
+    ERC721URIStorageUpgradeable
+} from "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 
 /**
  * @title NftToken
@@ -18,7 +21,12 @@ import {
  * @dev Designed to be deployed via a Factory pattern using OpenZeppelin upgradeable proxies.
  * State initialization is handled by the `initialize` function instead of a constructor.
  */
-contract NftToken is Initializable, ERC721Upgradeable, OwnableUpgradeable {
+contract NftToken is
+    Initializable,
+    ERC721Upgradeable,
+    OwnableUpgradeable,
+    ERC721URIStorageUpgradeable
+{
     /// @dev Internal counter to keep track of the next unique token ID to be minted.
     uint256 private _nextTokenId;
 
@@ -47,6 +55,7 @@ contract NftToken is Initializable, ERC721Upgradeable, OwnableUpgradeable {
     ) public initializer {
         __ERC721_init(name, symbol);
         __Ownable_init(initialOwner);
+        __ERC721URIStorage_init();
     }
 
     /**
@@ -54,12 +63,49 @@ contract NftToken is Initializable, ERC721Upgradeable, OwnableUpgradeable {
      * @dev Increments the internal `_nextTokenId` after each successful mint.
      * Restricted to the contract owner via the `onlyOwner` modifier.
      * @param to The recipient wallet address that will receive the minted NFT.
+     * @param uri link for the token metadata stored on IPFS.
      * @return The unique token ID of the newly minted NFT.
      */
-    function safeMint(address to) public onlyOwner returns (uint256) {
+    function safeMint(
+        address to,
+        string memory uri
+    ) public onlyOwner returns (uint256) {
         uint256 tokenId = _nextTokenId;
         _nextTokenId++;
         _safeMint(to, tokenId);
+
+        if (bytes(uri).length > 0) {
+            _setTokenURI(tokenId, uri);
+        }
+
         return tokenId;
+    }
+
+    /**
+     * @dev Necessary override because the function exists in both ERC721 and URIStorage.
+     */
+    function tokenURI(
+        uint256 tokenId
+    )
+        public
+        view
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    /**
+     * @dev Necessary override for correct operation of interfaces
+     */
+    function supportsInterface(
+        bytes4 interfaceId
+    )
+        public
+        view
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }

@@ -42,8 +42,7 @@ contract WilToken is Initializable, ERC20Upgradeable, OwnableUpgradeable {
 
     /**
      * @notice Creates (mints) new tokens and sends them to the specified address.
-     * @dev The function can be called ONLY by the contract owner (the `onlyOwner` modifier).
-     * The token amount is specified taking the `decimals` into account (18 decimal places by default).
+     * @dev The token amount is specified taking the `decimals` into account (18 decimal places by default).
      * @param to Address of the new token recipient.
      * @param amount Number of tokens to create (in wei).
      */
