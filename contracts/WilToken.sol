@@ -19,6 +19,13 @@ import {
  * takes place in an initialization function instead of a constructor.
  */
 contract WilToken is Initializable, ERC20Upgradeable, OwnableUpgradeable {
+    /**
+     * @notice Emitted when a user mints tokens.
+     * @param to The address of the user who minted tokens.
+     * @param amount The amount of tokens that were minted.
+     */
+    event Minted(address indexed to, uint256 amount);
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     /**
      * @notice Constructor of the base implementation contract.
@@ -48,5 +55,7 @@ contract WilToken is Initializable, ERC20Upgradeable, OwnableUpgradeable {
      */
     function mint(address to, uint256 amount) public {
         _mint(to, amount);
+
+        emit Minted(to, amount);
     }
 }

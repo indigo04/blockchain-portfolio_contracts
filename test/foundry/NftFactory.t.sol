@@ -71,7 +71,7 @@ contract NftFactoryTest is Test {
 
         bool foundOurEvent = false;
         bytes32 eventSignature = keccak256(
-            "CollectionCreated(address,string,string)"
+            "CollectionCreated(address,address,string,string)"
         );
 
         for (uint256 i = 0; i < logs.length; i++) {

@@ -64,3 +64,5 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+npx hardhat ignition deploy ./ignition/modules/Deploy.ts --network sepolia --verify

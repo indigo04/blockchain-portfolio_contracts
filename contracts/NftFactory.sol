@@ -30,11 +30,13 @@ contract NftFactory is Initializable, OwnableUpgradeable {
     /**
      * @notice Emitted when a new NFT collection is successfully created.
      * @param collectionAddress The smart contract address of the newly deployed NFT collection.
+     * @param creator The wallet address of the user who creates NFT collection.
      * @param name The name of the created NFT collection.
      * @param symbol The symbol of the created NFT collection.
      */
     event CollectionCreated(
         address indexed collectionAddress,
+        address indexed creator,
         string name,
         string symbol
     );
@@ -90,7 +92,12 @@ contract NftFactory is Initializable, OwnableUpgradeable {
 
         deployedCollections.push(address(newCollection));
 
-        emit CollectionCreated(address(newCollection), name, symbol);
+        emit CollectionCreated(
+            address(newCollection),
+            msg.sender,
+            name,
+            symbol
+        );
         return address(newCollection);
     }
 
