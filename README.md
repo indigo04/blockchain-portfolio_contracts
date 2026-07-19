@@ -1,68 +1,42 @@
-## Foundry
+## Author: indigo04
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+### Contracts
 
-Foundry consists of:
-
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+https://github.com/indigo04/blockchain-portfolio_contracts
 ```
 
-### Test
+### Indexer
 
-```shell
-$ forge test
+```
+https://github.com/indigo04/blockchain-portfolio_indexer
 ```
 
-### Format
+### Frontend
 
-```shell
-$ forge fmt
+```
+https://github.com/indigo04/blockchain-portfolio_website
 ```
 
-### Gas Snapshots
+### Preview
 
-```shell
-$ forge snapshot
+```
+https://blockchain-portfolio-website-s6at.vercel.app
 ```
 
-### Anvil
-
-```shell
-$ anvil
+### Contracts Addresses
+```
+0x594A089a67Fce318977b23cD7e89340fA588133C - NFT Factory
 ```
 
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+0x31D9052DfC3A6Ed999a64595B27863E2DDA1d79B - ERC20 Token
 ```
 
-### Cast
-
-```shell
-$ cast <subcommand>
+```
+0xF2f314a96650dDBb29a5024363779e154fC74248 - Marketplace
 ```
 
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
 ```
-
-npx hardhat ignition deploy ./ignition/modules/Deploy.ts --network sepolia --verify
+0x60405D07024822a8E3FC4E0F7eeeAF4C490F2A14 - ERC721 Token
+```
